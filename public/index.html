@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignalEdge Dark TMA</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0b0e11; color: #eaeaea; margin: 0; padding: 0; overflow-x: hidden; }
+        .header { background: #181a20; padding: 15px; text-align: center; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; }
+        .tab-bar { display: flex; justify-content: space-around; background: #181a20; padding: 10px 0; border-bottom: 1px solid #333; }
+        .tab { font-size: 13px; color: #848e9c; cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
+        .tab.active { color: #f0b90b; background: #2b2f36; font-weight: bold; }
+        .container { padding: 15px; }
+        .card { background: #1e2329; border-radius: 12px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #5e6673; }
+        .BUY { border-left-color: #0ecb81; }
+        .SELL { border-left-color: #f6465d; }
+        .WAIT { border-left-color: #f0b90b; }
+        .coin-info { display: flex; flex-direction: column; }
+        .coin-name { font-weight: bold; font-size: 16px; }
+        .coin-price { font-size: 14px; color: #848e9c; }
+        .signal-info { text-align: right; }
+        .badge { padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
+        .BUY-bg { background: rgba(14, 203, 129, 0.2); color: #0ecb81; }
+        .SELL-bg { background: rgba(246, 70, 93, 0.2); color: #f6465d; }
+        .WAIT-bg { background: rgba(240, 185, 11, 0.2); color: #f0b90b; }
+        .locked { filter: blur(4px); pointer-events: none; opacity: 0.6; }
+        .lock-notice { text-align: center; padding: 20px; background: #181a20; border-radius: 10px; margin-top: 10px; border: 1px dashed #f0b90b; }
+        .btn-upgrade { background: #f0b90b; color: #000; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; margin-top: 15px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="header"><strong>SIGNAL EDGE</strong></div>
+    <div class="tab-bar">
+        <div class="tab active">📊 Market</div>
+        <div class="tab">💎 Premium</div>
+        <div class="tab">👑 VIP Zone</div>
+    </div>
+
+    <div class="container">
+        <div id="signal-list">
+            <div class="card BUY">
+                <div class="coin-info"><span class="coin-name">BTC/USDT</span><span class="coin-price">$69,420.50</span></div>
+                <div class="signal-info"><span class="badge BUY-bg">Strong Buy</span><div style="font-size: 10px; margin-top:5px;">RSI: 32.4</div></div>
+            </div>
+            <div class="card locked">
+                <div class="coin-info"><span class="coin-name">SOL/USDT</span><span class="coin-price">$145.20</span></div>
+                <div class="signal-info"><span class="badge">Locked</span></div>
+            </div>
+            <div class="lock-notice">
+                <p style="font-size: 14px; margin: 0;">Unlock 100+ Pro & VIP Signals</p>
+                <button class="btn-upgrade">Upgrade Now 🌟</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        tg.setHeaderColor('#181a20');
+        tg.setBackgroundColor('#0b0e11');
+    </script>
+</body>
+                  </html>
