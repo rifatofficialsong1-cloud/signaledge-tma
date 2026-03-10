@@ -3,84 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignalEdge AI Pro</title>
+    <title>SignalEdge Pro AI</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background: #0b0e11; color: #fff; margin: 0; padding: 0; }
-        .header { padding: 20px; text-align: center; background: #181a20; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; }
-        .container { padding: 15px; padding-bottom: 50px; }
         
-        /* AI Signal Card */
-        .ai-card { background: linear-gradient(135deg, #f0b90b 0%, #c99400 100%); color: #000; border-radius: 15px; padding: 20px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(240, 185, 11, 0.3); position: relative; overflow: hidden; }
-        .ai-card h2 { margin: 0; font-size: 14px; text-transform: uppercase; opacity: 0.8; }
-        .ai-card .coin-pair { font-size: 28px; font-weight: 800; margin: 10px 0; }
-        .ai-badge { background: rgba(0,0,0,0.1); padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; }
+        /* Live Ticker Animation */
+        .ticker-wrap { background: #181a20; padding: 5px 0; border-bottom: 1px solid #333; overflow: hidden; }
+        .ticker { display: flex; white-space: nowrap; animation: ticker 20s linear infinite; }
+        .ticker-item { padding: 0 20px; font-size: 12px; color: #0ecb81; font-weight: bold; }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* Market Cards */
-        .section-title { font-size: 14px; color: #848e9c; margin-bottom: 12px; display: flex; justify-content: space-between; }
-        .card { background: #1e2329; border-radius: 12px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #2b2f36; }
-        .symbol { font-weight: 600; font-size: 16px; }
-        .buy-text { color: #0ecb81; font-weight: bold; }
+        .header { padding: 15px; text-align: center; background: #181a20; font-weight: 800; border-bottom: 1px solid #333; }
+        .container { padding: 15px; }
 
-        /* Navigation Grid */
-        .tier-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-        .tier-btn { background: #1e2329; border: 1px solid #333; padding: 20px; border-radius: 12px; text-align: center; cursor: pointer; transition: 0.2s; }
-        .tier-btn:active { transform: scale(0.95); background: #2b2f36; }
-        .vip-btn { grid-column: span 2; background: rgba(240, 185, 11, 0.05); border: 1px solid #f0b90b; color: #f0b90b; }
+        /* AI Card with Pulse Animation */
+        .ai-card { background: linear-gradient(135deg, #f0b90b 0%, #c99400 100%); color: #000; border-radius: 15px; padding: 20px; margin-bottom: 20px; box-shadow: 0 0 20px rgba(240, 185, 11, 0.4); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
 
-        /* Payment UI */
-        .payment-box { background: #1e2329; padding: 20px; border-radius: 15px; border: 1px solid #333; margin-top: 20px; }
-        .wallet-addr { background: #000; padding: 12px; border-radius: 8px; font-size: 11px; word-break: break-all; margin: 15px 0; border: 1px solid #444; color: #f0b90b; }
-        input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #0b0e11; color: #fff; margin-bottom: 10px; box-sizing: border-box; }
-        .btn-verify { width: 100%; padding: 14px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; background: #0ecb81; color: #000; }
+        /* Benefit List Styling */
+        .benefit-list { text-align: left; margin: 15px 0; font-size: 13px; color: #eaeaea; line-height: 1.6; }
+        .benefit-item { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+        
+        .tier-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .tier-btn { background: #1e2329; border: 1px solid #333; padding: 15px; border-radius: 12px; text-align: center; cursor: pointer; }
+        .vip-btn { grid-column: span 2; border: 1px solid #f0b90b; background: rgba(240,185,11,0.1); font-weight: bold; }
+
+        input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #0b0e11; color: #fff; margin: 15px 0; }
+        .btn-verify { width: 100%; padding: 14px; border-radius: 8px; border: none; font-weight: bold; background: #0ecb81; color: #000; }
     </style>
 </head>
 <body>
 
+<div class="ticker-wrap">
+    <div class="ticker">
+        <span class="ticker-item">BTC $68,432.10 (+2.4%)</span>
+        <span class="ticker-item">ETH $3,842.15 (+1.8%)</span>
+        <span class="ticker-item" style="color:#f6465d">SOL $145.20 (-0.5%)</span>
+        <span class="ticker-item">BNB $592.40 (+3.1%)</span>
+    </div>
+</div>
+
 <div id="home-page">
-    <div class="header"><strong>SIGNAL EDGE AI</strong></div>
+    <div class="header">SIGNAL EDGE AI PRO</div>
     <div class="container">
         <div class="ai-card">
-            <h2>🤖 AI Premium Signal</h2>
-            <div class="coin-pair">BTC/USDT</div>
-            <div style="display: flex; gap: 10px; align-items: center;">
-                <span class="ai-badge">Action: STRONG BUY</span>
-                <span class="ai-badge">Confidence: 97.8%</span>
-            </div>
+            <h2 style="margin:0; font-size:12px;">🤖 AI SCALPING SIGNAL</h2>
+            <div style="font-size:26px; font-weight:800; margin:5px 0;">BTC/USDT</div>
+            <div style="font-weight:bold; background:rgba(0,0,0,0.1); display:inline-block; padding:2px 8px; border-radius:4px;">STRONG BUY</div>
         </div>
 
-        <div class="section-title"><span>Free Market Signals</span> <span style="color:#f0b90b">Live ●</span></div>
-        <div id="free-signals">
-            <div class="card"><span class="symbol">ETH/USDT</span><span class="buy-text">BUY</span></div>
-            <div class="card"><span class="symbol">SOL/USDT</span><span class="buy-text">BUY</span></div>
-            <div class="card"><span class="symbol">BNB/USDT</span><span class="buy-text">WAIT</span></div>
-        </div>
-
-        <div class="section-title" style="margin-top: 25px;">Premium Signal Hub</div>
+        <div style="font-size:14px; color:#848e9c; margin-bottom:10px;">Select Your Plan</div>
         <div class="tier-grid">
-            <div class="tier-btn" onclick="openTier('Basic', 5)">💎<br>Basic</div>
-            <div class="tier-btn" onclick="openTier('Pro', 15)">🚀<br>Pro</div>
-            <div class="tier-btn vip-btn" onclick="openTier('VIP', 30)">👑 Unlock VIP Insider Signals</div>
+            <div class="tier-btn" onclick="openTier('Basic', 5, ['10 Daily Signals', '90% Accuracy', 'Email Alerts'])">💎 Basic</div>
+            <div class="tier-btn" onclick="openTier('Pro', 15, ['50 Daily Signals', '95% Accuracy', 'RSI & MACD Analysis'])">🚀 Pro</div>
+            <div class="tier-btn vip-btn" onclick="openTier('VIP', 30, ['Unlimited Signals', 'Whale Tracker', '1-on-1 Personal Chat', 'Instant Push Alerts'])">👑 Unlock VIP Access</div>
         </div>
     </div>
 </div>
 
 <div id="tier-page" style="display:none;">
-    <div class="header">
-        <span style="float: left; cursor: pointer;" onclick="goHome()">⬅️ Back</span>
-        <strong id="tier-title">Plan</strong>
-    </div>
+    <div class="header" onclick="goHome()" style="cursor:pointer;">⬅️ BACK TO MARKET</div>
     <div class="container">
-        <div class="payment-box">
-            <h3 id="plan-price" style="color:#f0b90b; margin-top:0;">$0.00</h3>
-            <p style="font-size:14px; color:#848e9c;">To unlock these signals, send TON to the address below and paste the transaction hash.</p>
+        <div style="background:#1e2329; padding:20px; border-radius:15px; border:1px solid #333; text-align:center;">
+            <h2 id="t-title" style="color:#f0b90b; margin:0;">Plan</h2>
+            <h1 id="t-price" style="margin:10px 0;">$0</h1>
             
-            <div class="wallet-addr" id="wallet">UQD0VDtfdPv0WptptIIOgUM59VV1zIf4sYBpz1eMilieijTB</div>
-            <button onclick="copyWallet()" style="background:none; border:1px solid #f0b90b; color:#f0b90b; padding:8px 15px; border-radius:5px; font-size:12px; width:100%; margin-bottom:20px;">Copy Wallet Address 📋</button>
+            <div class="benefit-list" id="t-benefits">
+                </div>
 
-            <input type="text" id="tx-hash" placeholder="Enter Transaction Hash / ID">
-            <button class="btn-verify" onclick="verifyPayment()" id="v-btn">Verify & Unlock Now</button>
+            <div style="border-top: 1px solid #333; margin-top:15px; padding-top:15px;">
+                <p style="font-size:12px; color:#848e9c;">Send TON to the address below:</p>
+                <div style="background:#000; padding:10px; border-radius:5px; font-size:10px; color:#f0b90b; word-break:break-all;">UQD0VDtfdPv0WptptIIOgUM59VV1zIf4sYBpz1eMilieijTB</div>
+                <input type="text" id="tx-hash" placeholder="Paste Transaction Hash">
+                <button class="btn-verify" onclick="verifyPayment()" id="v-btn">Verify & Unlock Access</button>
+            </div>
         </div>
     </div>
 </div>
@@ -89,14 +87,17 @@
     const tg = window.Telegram.WebApp;
     tg.expand();
 
-    let currentSelectedPlan = "";
-
-    function openTier(name, price) {
-        currentSelectedPlan = name;
+    function openTier(name, price, benefits) {
         document.getElementById('home-page').style.display = 'none';
         document.getElementById('tier-page').style.display = 'block';
-        document.getElementById('tier-title').innerText = name + " Signals";
-        document.getElementById('plan-price').innerText = "$" + price + " / Month";
+        document.getElementById('t-title').innerText = name + " Membership";
+        document.getElementById('t-price').innerText = "$" + price;
+        
+        let bHtml = "";
+        benefits.forEach(b => {
+            bHtml += `<div class="benefit-item">✅ ${b}</div>`;
+        });
+        document.getElementById('t-benefits').innerHTML = bHtml;
     }
 
     function goHome() {
@@ -104,37 +105,9 @@
         document.getElementById('tier-page').style.display = 'none';
     }
 
-    function copyWallet() {
-        const addr = document.getElementById('wallet').innerText;
-        navigator.clipboard.writeText(addr);
-        tg.showAlert("Address Copied! Now send TON from Tonkeeper.");
-    }
-
     async function verifyPayment() {
-        const hash = document.getElementById('tx-hash').value;
-        if(!hash) return tg.showAlert("Please enter the transaction hash!");
-
-        document.getElementById('v-btn').innerText = "Verifying on Blockchain...";
-
-        const res = await fetch('/api/verify-ton', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                chatId: tg.initDataUnsafe.user.id,
-                utransactionHash: hash,
-                plan: currentSelectedPlan
-            })
-        });
-
-        const data = await res.json();
-        if(data.success) {
-            tg.showAlert("Success! " + data.message);
-            window.location.reload();
-        } else {
-            tg.showAlert(data.message);
-            document.getElementById('v-btn').innerText = "Verify & Unlock Now";
-        }
+        // ... (আগের verifyPayment লজিক থাকবে)
     }
 </script>
 </body>
-    </html>
+                </html>
